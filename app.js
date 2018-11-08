@@ -6,9 +6,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const index = require('./routes/index')
-const users = require('./routes/users')
-const redirect = require('./routes/redirect')
+const router = require('./routes')
 
 // error handler
 onerror(app)
@@ -34,9 +32,10 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
-app.use(redirect.routes(),redirect.allowedMethods())
+Object.values(router).map(route=>{
+  app.use(route.routes(), route.allowedMethods())
+})
+
 
 // error-handling
 app.on('error', (err, ctx) => {

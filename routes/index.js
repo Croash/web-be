@@ -1,19 +1,15 @@
-const router = require('koa-router')()
+const login = require('./login')
+const indexPage = require('./indexPage')
+const redirect = require('./redirect')
+const users = require('./users')
+const postPage = require('./postPage')
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
-})
-
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
+const router = {
+  login,
+  indexPage,
+  redirect,
+  users,
+  postPage,
+}
 
 module.exports = router
